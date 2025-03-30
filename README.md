@@ -21,6 +21,7 @@ architecture = "arm64"
 
 **Note:** This Makefile has been tested on MacBook Pro (M2 and M3).  
 > Some commands, may not work the same way on Linux.
+> multipass info server | grep 'IPv4' | cut -d':' -f2 | xargs
 
 ---
 

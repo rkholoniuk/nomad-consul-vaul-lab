@@ -28,8 +28,6 @@ reset:
 	@echo "Client IP: $$(multipass info client | grep 'IPv4' | cut -d':' -f2 | xargs)"
 	@echo "Server and client launched. Please run 'make shell-server' or 'make shell-client' to access them."
 	
-
-
 launch-client1:
 	@if ! multipass info server | grep -q 'IPv4'; then \
 		echo "Server not running. Please run 'make launch-server' first."; exit 1; \
@@ -43,7 +41,6 @@ info:
 
 shell-server:
 	multipass shell server
-	# nomad server members
 
 shell-client:
 	multipass shell client
@@ -53,7 +50,7 @@ nomad-address:
 	export NOMAD_ADDR="http://$$(join_ip):4646"
 	@echo "export NOMAD_ADDR=$$(echo $$NOMAD_ADDR)"
 
-test-job:
+hello-world-job:
 	@if ! multipass info server | grep -q 'IPv4'; then \
 		echo "Server not running. Please run 'make launch-server' first."; exit 1; \
 	fi; \
@@ -67,7 +64,6 @@ test-job:
 	alloc_id=$$(NOMAD_ADDR=$${NOMAD_ADDR} nomad job status hello-world | grep -A100 "^Allocations" | tail -n +2 | sort -rk8 | head -n1 | awk '{print $$1}'); \
 	NOMAD_ADDR=$${NOMAD_ADDR} nomad alloc logs $${alloc_id}; \
 	echo "To see the job status again, run 'nomad job status hello-world'."
-
 
 stop:
 	multipass stop --all
