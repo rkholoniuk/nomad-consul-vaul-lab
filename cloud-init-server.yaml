@@ -1,6 +1,8 @@
 packages:
   - curl
   - unzip
+  - gnupg
+  - software-properties-common
 
 write_files:
   - path: /etc/consul.d/consul.hcl
@@ -128,6 +130,7 @@ runcmd:
   - cp /opt/stack-init/nomad /usr/local/bin/nomad
   - chmod +x /usr/local/bin/nomad
   - systemctl daemon-reload
+  - nomad -autocomplete-install
   - systemctl enable nomad
   - systemctl start nomad
 

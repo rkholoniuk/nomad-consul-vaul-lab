@@ -1,6 +1,8 @@
 packages:
   - curl
   - unzip
+  - gnupg
+  - software-properties-common
 
 write_files:
   - path: /etc/consul.d/consul.hcl
@@ -10,7 +12,7 @@ write_files:
       encrypt = "AbC2FZWwlt8475wD1WtwUQ=="
       data_dir="/var/lib/consul"
       ui=true
-      retry_join=["192.168.64.53"]
+      retry_join=["192.168.64.56"]
       connect {
         enabled=true
       }
@@ -45,7 +47,7 @@ write_files:
         enabled = true
         cpu_total_compute = 1000
         server_join {
-          retry_join = ["192.168.64.53"]
+          retry_join = ["192.168.64.56"]
         }
         options { 
           docker.privileged.enabled = true 
@@ -71,7 +73,7 @@ write_files:
         
         encrypt = "AbC2FZWwlt8475wD1WtwUQ=="
         server_join {
-          retry_join = ["192.168.64.53"]
+          retry_join = ["192.168.64.56"]
         }
       }
       telemetry { 
