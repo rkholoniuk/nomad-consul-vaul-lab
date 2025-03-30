@@ -18,4 +18,14 @@ launch-client:
 	$(MAKE) render-cloud-init-client join=$$join_ip; \
 	multipass launch --name=client --cloud-init=cloud-init-client.yaml
 
+reset:
+	multipass stop --all
+	multipass delete --all
+	multipass purge
+	$(MAKE) launch-server
+	$(MAKE) launch-client
+	@echo "Server and client launched. Please run 'make shell-server' or 'make shell-client' to access them."
+	@echo "Server IP: $$(multipass info server | grep 'IPv4' | cut -d':' -f2 | xargs)"
+	@echo "Client IP: $$(multipass info client | grep 'IPv4' | cut -d':' -f2 | xargs)"
+
 
