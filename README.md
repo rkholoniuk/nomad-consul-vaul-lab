@@ -31,7 +31,7 @@ cp config/server-template.tfvars config/server.tfvars
 cp config/client-template.tfvars config/client.tfvars 
 ```
 
-##### Launch VMs machines
+#### 2.Launch VMs machines
 
 Start the server and client VMs:
 
@@ -39,8 +39,7 @@ Start the server and client VMs:
 make launch-server
 make launch-client
 ```
-
-##### SSH VMs machines
+#### 3.SSH into VMS
 
 Access the server or client shell via:
 
@@ -49,7 +48,7 @@ multipass shell server
 multipass shell client
 ```
 
-##### Deploy nomad job (test)
+#### 4.Deploy nomad job (test)
 
 Submit a test job to verify everything is working:
 
@@ -57,7 +56,7 @@ Submit a test job to verify everything is working:
 make hello-world-job
 ```
 
-##### Stop & Clean
+#### 4.Stop & Clean
 
 To stop and delete the VMs:
 
