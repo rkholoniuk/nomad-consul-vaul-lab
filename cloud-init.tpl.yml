@@ -71,6 +71,11 @@ write_files:
           retry_join = ["${join}"]
         }
       }
+      telemetry { 
+        publish_allocation_metrics = true 
+        publish_node_metrics = true 
+        prometheus_metrics = true 
+      }
       datacenter="${datacenter}"
       bind_addr = "0.0.0.0"
       data_dir="/var/lib/nomad"
