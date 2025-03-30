@@ -48,17 +48,27 @@ shell-server:
 shell-client:
 	multipass shell client
 
+nomad-address:
+	join_ip=$$(multipass info server | grep 'IPv4' | cut -d':' -f2 | xargs); \
+	export NOMAD_ADDR="http://$$(join_ip):4646"
+	@echo "export NOMAD_ADDR=$$(echo $$NOMAD_ADDR)"
+
 test-job:
 	@if ! multipass info server | grep -q 'IPv4'; then \
 		echo "Server not running. Please run 'make launch-server' first."; exit 1; \
 	fi; \
 	join_ip=$$(multipass info server | grep 'IPv4' | cut -d':' -f2 | xargs); \
-	export NOMAD_ADDR="http://$$(join_ip):4646"
-	@echo "export NOMAD_ADDR=$$(echo $$NOMAD_ADDR)"
-	nomad job run jobs/hello-world.nomad
-	@echo "Job submitted. Check the status with 'nomad job status hello-world'."
-	@echo "To see the logs, run 'nomad alloc logs <allocation_id>'"
-	@echo "To see the job status, run 'nomad job status hello-world'."
+	NOMAD_ADDR="http://$${join_ip}:4646"; \
+	echo "export NOMAD_ADDR=$${NOMAD_ADDR}"; \
+	NOMAD_ADDR=$${NOMAD_ADDR} nomad job run jobs/hello-world.nomad; \
+	echo "Job submitted. Checking status..."; \
+	NOMAD_ADDR=$${NOMAD_ADDR} nomad job status hello-world; \
+	echo "Fetching and streaming logs from the latest allocation..."; \
+	alloc_id=$$(NOMAD_ADDR=$${NOMAD_ADDR} nomad job status hello-world | grep -A100 "^Allocations" | tail -n +2 | sort -rk8 | head -n1 | awk '{print $$1}'); \
+	NOMAD_ADDR=$${NOMAD_ADDR} nomad alloc logs $${alloc_id}; \
+	echo "To see the job status again, run 'nomad job status hello-world'."
+
+
 stop:
 	multipass stop --all
 
