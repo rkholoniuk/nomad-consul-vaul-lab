@@ -18,6 +18,10 @@ Make sure to install Multipass on your local machine before proceeding.
 ```hcl
 architecture = "arm64"
 ```
+
+> **Note:** This Makefile has been tested on MacBook Pro (M2 and M3).  
+> Some commands, may not work the same way on Linux.
+
 ---
 
 ### Setup
