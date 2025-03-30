@@ -10,7 +10,8 @@
 
 This tutorial uses virtual machines via [Multipass](https://multipass.run/) running Ubuntu 22.04.
 
-Make sure to install Multipass on your local machine before proceeding.
+ - Make sure to install Multipass on your local machine before proceeding.
+ - Nomad and Terraform installed
 
 **Note:** The setup has been tested on MacBook Pro (M2 and M3).
 > If you're running on an ARM-based system (like Apple Silicon), change it to:
