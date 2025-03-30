@@ -1,38 +1,66 @@
-## Getting started
+## Getting Started
 
-### Before you start
+### Before You Start
 
-*If you're absolute beginner, please watch the [official getting started](https://www.youtube.com/watch?v=xl58mjMJjrg) video from Hashicorp* to get some basic concepts
+> **If you're an absolute beginner**, watch [HashiCorp's official "Getting Started" video](https://www.youtube.com/watch?v=xl58mjMJjrg) to understand the basic concepts of Nomad.
 
-###  Requisition
-I'm using VMs ([multipass](https://multipass.run/)) on Ubuntu 22.04 for this tutorial. Ensure that you install Multipass on your machine before you go
+---
 
+### Requirements
 
-##### Create config for server and client
+This tutorial uses virtual machines via [Multipass](https://multipass.run/) running Ubuntu 22.04.
+
+Make sure to install Multipass on your local machine before proceeding.
+
+**Note:** The setup has been tested on MacBook Pro (M2 and M3).
+> If you're running on an ARM-based system (like Apple Silicon), change it to:
+
+```hcl
+architecture = "arm64"
+```
+---
+
+### Setup
+
+#### 1. Create Configuration Files
+
+Copy the example configuration templates:
+
 ```shell
 cp config/server-template.tfvars config/server.tfvars 
 cp config/client-template.tfvars config/client.tfvars 
-
 ```
 
 ##### Launch VMs machines
+
+Start the server and client VMs:
+
 ```shell
 make launch-server
 make launch-client
 ```
 
 ##### SSH VMs machines
+
+Access the server or client shell via:
+
 ```shell
 multipass shell server
 multipass shell client
 ```
 
 ##### Deploy nomad job (test)
+
+Submit a test job to verify everything is working:
+
 ```shell
 make hello-world-job
 ```
 
 ##### Stop & Clean
+
+To stop and delete the VMs:
+
 ```shell
 make clean
 ```
